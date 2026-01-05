@@ -11,6 +11,7 @@ st.markdown(
       .block-container { padding-top: 1.2rem; }
       div[data-testid="stDataFrame"] { border: 1px solid #e6e6e6; border-radius: 6px; }
     </style>
+    
     """,
     unsafe_allow_html=True,
 )
@@ -96,7 +97,7 @@ def renumber_rows(df: pd.DataFrame) -> pd.DataFrame:
 
 if "paper_df" not in st.session_state:
     rows = []
-    for i in range(1, 5):
+    for i in range(1, 6):
         r = make_empty_row()
         r["Row"] = i
         rows.append(r)
@@ -160,7 +161,7 @@ n_rows = len(df_for_editor)
 ROW_PX = 35        # adjust if rows look cramped or too tall
 HEADER_PX = 44
 MAX_HEIGHT = 1400  # safety cap; increase if you truly want huge pages
-editor_height = min(MAX_HEIGHT, HEADER_PX + (n_rows + 1) * ROW_PX)
+editor_height = min(MAX_HEIGHT, HEADER_PX + (n_rows) * ROW_PX)
 
 edited_df = st.data_editor(
     st.session_state.paper_df,
