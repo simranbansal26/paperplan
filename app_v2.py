@@ -22,22 +22,43 @@ st.markdown(
 )
 st.write("")
 
-c1, c2, c3, c4, c5, c6 = st.columns([1.2, 2.6, 0.8, 1.6, 0.8, 2.0])
+c1, c2, c3, c4, c5, c6 = st.columns([0.5, 2.6, 0.5, 1.6, 0.5, 2.0])
 
 with c1:
     st.markdown("**Subject**")
 with c2:
-    subject = st.text_input("", value="Maths", label_visibility="collapsed")
+    subject_options = ["Select", "Maths", "English", "Science", "Social Studies"]
+    subject = st.selectbox(
+        "",
+        subject_options,
+        index=subject_options.index("Select"),
+        key="subject",
+        label_visibility="collapsed",
+    )
 
 with c3:
     st.markdown("**Class**")
 with c4:
-    class_val = st.text_input("", value="5", label_visibility="collapsed")
+    class_options = ["Select", 3, 4, 5, 6, 7, 8, 9, 10]
+    class_val = st.selectbox(
+        "",
+        class_options,
+        index=class_options.index("Select"),
+        key="class",
+        label_visibility="collapsed",
+    )
 
 with c5:
     st.markdown("**Round**")
 with c6:
-    round_val = st.text_input("", value="Summer 2026", label_visibility="collapsed")
+    round_options = ["Select", "Summer 2026", "Winter 2026", "Summer 2027"]
+    round_val = st.selectbox(
+        "",
+        round_options,
+        index=round_options.index("Select"),
+        key="round",
+        label_visibility="collapsed",
+    )
 
 st.write("")
 
@@ -141,21 +162,21 @@ edited_df = st.data_editor(
     disabled=["Row"],  # keep row numbers stable and not editable
     column_config={
         "Row": st.column_config.NumberColumn(""),
-        "Question Idea": st.column_config.TextColumn(width="large"),
-        "Skill": st.column_config.TextColumn(width="medium"),
-        "Sub-skill": st.column_config.TextColumn(width="medium"),
+        "Question Idea": st.column_config.TextColumn(width="medium"),
+        "Skill": st.column_config.TextColumn(width="small"),
+        "Sub-skill": st.column_config.TextColumn(width="small"),
         "Difficulty": st.column_config.SelectboxColumn(
             "Difficulty",
             options=difficulty_options,
             width="small",
         ),
-        "Comment": st.column_config.TextColumn(width="large"),
+        "Comment": st.column_config.TextColumn(width="small"),
         "QCode": st.column_config.TextColumn(width="small"),
         "QNo": st.column_config.TextColumn(width="small"),
         "Status": st.column_config.SelectboxColumn(
             "Status",
             options=status_options,
-            width="medium",
+            width="small",
         ),
         "Delete": st.column_config.CheckboxColumn("Delete", width="small"),
     },
