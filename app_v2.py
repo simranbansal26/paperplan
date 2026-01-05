@@ -96,7 +96,7 @@ def renumber_rows(df: pd.DataFrame) -> pd.DataFrame:
 
 if "paper_df" not in st.session_state:
     rows = []
-    for i in range(1, 17):
+    for i in range(1, 5):
         r = make_empty_row()
         r["Row"] = i
         rows.append(r)
@@ -153,11 +153,21 @@ with t2:
 difficulty_options = ["", "easy", "medium", "hard"]
 status_options = ["", "Idea", "Added", "Commented", "Approved"]
 
+df_for_editor = st.session_state.paper_df.copy()
+
+# --- dynamic height: expand to show all rows (no internal scroll) ---
+n_rows = len(df_for_editor)
+ROW_PX = 35        # adjust if rows look cramped or too tall
+HEADER_PX = 44
+MAX_HEIGHT = 1400  # safety cap; increase if you truly want huge pages
+editor_height = min(MAX_HEIGHT, HEADER_PX + (n_rows + 1) * ROW_PX)
+
 edited_df = st.data_editor(
     st.session_state.paper_df,
     key="paper_plan_editor",
     use_container_width=True,
     num_rows="fixed",
+    height = editor_height,
     hide_index=True,
     disabled=["Row"],  # keep row numbers stable and not editable
     column_config={
